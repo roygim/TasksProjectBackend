@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace TasksProjectBackend.Repositories
 {
-    public class TaskDataMock
+    public class TaskDataMock: ITaskRepository
     {
         private List<TaskObj> _tasks = new List<TaskObj>
         {

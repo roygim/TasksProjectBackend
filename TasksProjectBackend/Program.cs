@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<TaskDataMock>();
+builder.Services.AddSingleton<ITaskRepository, TaskDataMock>();
 
 builder.Services.AddScoped<ITaskService, TaskService>();
 

@@ -4,31 +4,31 @@ namespace TasksProjectBackend.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly TaskDataMock _taskDataMock;
+        private readonly ITaskRepository _taskRepository;
 
-        public TaskService(TaskDataMock taskDataMock)
+        public TaskService(ITaskRepository taskRepository)
         {
-            _taskDataMock = taskDataMock;
+            _taskRepository = taskRepository;
         }
 
         public async Task<List<TaskObj>> GetAllTasks()
         {
-            return await _taskDataMock.GetAllTasks();
+            return await _taskRepository.GetAllTasks();
         }
 
         public async Task<TaskObj> AddTask(TaskObj task)
         {
-            return await _taskDataMock.AddTask(task);
+            return await _taskRepository.AddTask(task);
         }
 
         public async Task<bool> DeleteTask(int id)
         {
-            return await _taskDataMock.DeleteTask(id);
+            return await _taskRepository.DeleteTask(id);
         }
 
         public async Task<int> DeleteTasks(string ids)
         {
-            return await _taskDataMock.DeleteTasks(ids);
+            return await _taskRepository.DeleteTasks(ids);
         }
 
         
