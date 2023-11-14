@@ -2,9 +2,9 @@
 {
     public interface ITaskService
     {
-        List<TaskObj> GetAllTasks();
-        TaskObj AddTask(TaskObj task);
-        void DeleteTask(int id);
-        void DeleteTasks(string ids);
+        Task<List<TaskObj>> GetAllTasks();
+        Task<TaskObj> AddTask(TaskObj task);
+        Task<bool> DeleteTask(int id);
+        Task<int> DeleteTasks(string ids);
     }
 }

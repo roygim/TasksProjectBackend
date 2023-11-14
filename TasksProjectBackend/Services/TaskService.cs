@@ -1,27 +1,34 @@
-﻿using TasksProjectBackend.Interfaces;
+﻿using System.Threading.Tasks;
 
 namespace TasksProjectBackend.Services
 {
     public class TaskService : ITaskService
     {
-        public List<TaskObj> GetAllTasks()
+        private readonly TaskDataMock _taskDataMock;
+
+        public TaskService(TaskDataMock taskDataMock)
         {
-            throw new NotImplementedException();
+            _taskDataMock = taskDataMock;
         }
 
-        public TaskObj AddTask(TaskObj task)
+        public async Task<List<TaskObj>> GetAllTasks()
         {
-            throw new NotImplementedException();
+            return await _taskDataMock.GetAllTasks();
         }
 
-        public void DeleteTask(int id)
+        public async Task<TaskObj> AddTask(TaskObj task)
         {
-            throw new NotImplementedException();
+            return await _taskDataMock.AddTask(task);
         }
 
-        public void DeleteTasks(string ids)
+        public async Task<bool> DeleteTask(int id)
         {
-            throw new NotImplementedException();
+            return await _taskDataMock.DeleteTask(id);
+        }
+
+        public async Task<int> DeleteTasks(string ids)
+        {
+            return await _taskDataMock.DeleteTasks(ids);
         }
 
         

@@ -13,18 +13,18 @@ namespace TasksProjectBackend.Repositories
             new TaskObj { Id = 3, Text = "Test3" },
         };
 
-        public List<TaskObj> GetAllTasks()
+        public async Task<List<TaskObj>> GetAllTasks()
         {
             return _tasks;
         }
 
-        public TaskObj AddTask(TaskObj task)
+        public async Task<TaskObj> AddTask(TaskObj task)
         {
             _tasks.Add(task);
             return task;
         }
 
-        public bool DeleteTask(int id)
+        public async Task<bool> DeleteTask(int id)
         {
             var task = _tasks.SingleOrDefault(t => t.Id == id);
             if(task != null)
@@ -34,7 +34,7 @@ namespace TasksProjectBackend.Repositories
             return false;
         }
 
-        public int DeleteTasks(string ids)
+        public async Task<int> DeleteTasks(string ids)
         {
             string [] idsArray = ids.Split(',');
             int num = _tasks.RemoveAll(t => idsArray.Contains(t.Id.ToString()));

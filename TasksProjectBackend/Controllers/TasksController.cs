@@ -6,22 +6,39 @@ namespace TasksProjectBackend.Controllers
     [Route("api/[controller]")]
     public class TasksController : ControllerBase
     {
-        [HttpGet("example")]
-        public IActionResult Get()
+        private readonly ITaskService _taskService;
+
+        public TasksController(ITaskService taskService)
         {
-            return Ok("ok");
+            _taskService = taskService;
         }
 
-        [HttpGet("example2")]
-        public IActionResult Get2()
+        [HttpGet("GetAllTasks")]
+        public async Task<ActionResult<List<TaskObj>>> GetAll()
         {
-            return Ok("ok2");
+            List<TaskObj> tasks = await _taskService.GetAllTasks();
+            return Ok(tasks);
         }
 
-        [HttpPost("post1")]
-        public IActionResult post1()
+        [HttpPost("AddTask")]
+        public async Task<ActionResult<TaskObj>> AddTask(TaskObj taskObj)
         {
-            return Ok("post111");
+            TaskObj newTask = await _taskService.AddTask(taskObj);
+            return Ok(newTask);
+        }
+
+        [HttpDelete("DeleteTask/{id}")]
+        public async Task<ActionResult<bool>> DeleteTask(int id)
+        {
+            bool isDeleted = await _taskService.DeleteTask(id);
+            return Ok(isDeleted);
+        }
+
+        [HttpDelete("DeleteTasks")]
+        public async Task<ActionResult<int>> DeleteTasks([FromBody] string ids)
+        {
+            int deletedTasks = await _taskService.DeleteTasks(ids);
+            return Ok(deletedTasks);
         }
     }
 }
