@@ -8,9 +8,9 @@ namespace TasksProjectBackend.Repositories
     {
         private List<TaskObj> _tasks = new List<TaskObj>
         {
-            new TaskObj { Id = 1, Text = "Test1" },
-            new TaskObj { Id = 2, Text = "Test2" },
-            new TaskObj { Id = 3, Text = "Test3" },
+            new TaskObj { Id = 1, Text = "Test1", IsComplete = false },
+            new TaskObj { Id = 2, Text = "Test2", IsComplete = false },
+            new TaskObj { Id = 3, Text = "Test3", IsComplete = false },
         };
 
         public async Task<List<TaskObj>> GetAllTasks()
