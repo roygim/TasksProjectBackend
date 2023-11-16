@@ -11,8 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<ITaskRepository, TaskDataMock>();
-//builder.Services.AddSingleton<ITaskRepository, TaskDataMySql>();
+//builder.Services.AddSingleton<ITaskRepository, TaskDataMock>();
+builder.Services.AddSingleton<ITaskRepository, TaskDataMySql>();
 
 builder.Services.AddScoped<ITaskService, TaskService>();
 

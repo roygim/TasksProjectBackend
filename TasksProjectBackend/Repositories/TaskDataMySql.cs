@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -12,10 +16,27 @@ namespace TasksProjectBackend.Repositories
             new TaskObj { Id = 2, Text = "Test2 Mysql" },
             new TaskObj { Id = 3, Text = "Test3 Mysql" },
         };
+        private readonly IConfiguration _config;
+        private readonly string _connectionString;
+
+        public TaskDataMySql(IConfiguration configuration)
+        {
+            _config = configuration;
+            _connectionString = _config.GetConnectionString("Default");
+        }
+
+        private IDbConnection GetDbConnection()
+        {
+            using IDbConnection dbConnection = new MySqlConnection(_connectionString);
+            return dbConnection;
+        }
 
         public async Task<List<TaskObj>> GetAllTasks()
         {
-            return _tasks;
+            var conn = GetDbConnection();
+            string sql = "select * from tbl_tasks";
+            var tasks = await conn.QueryAsync<TaskObj>(sql);
+            return tasks.ToList<TaskObj>();
         }
 
         public async Task<TaskObj> AddTask(TaskObj task)
