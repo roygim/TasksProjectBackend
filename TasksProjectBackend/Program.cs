@@ -11,6 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSingleton<ObjectReflectionService>();
+
 //builder.Services.AddSingleton<ITaskRepository, TaskDataMock>();
 builder.Services.AddSingleton<ITaskRepository, TaskDataMySql>();
 
