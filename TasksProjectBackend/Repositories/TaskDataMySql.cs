@@ -62,6 +62,14 @@ namespace TasksProjectBackend.Repositories
             return num;
         }
 
-        
+        public Task<List<TaskObj>> GetCompletedTasks()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TaskObj> GetTask(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

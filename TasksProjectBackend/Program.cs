@@ -11,10 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSingleton<LambdaService>();
 builder.Services.AddSingleton<ObjectReflectionService>();
 
-//builder.Services.AddSingleton<ITaskRepository, TaskDataMock>();
-builder.Services.AddSingleton<ITaskRepository, TaskDataMySql>();
+builder.Services.AddSingleton<ITaskRepository, TaskDataMock>();
+//builder.Services.AddSingleton<ITaskRepository, TaskDataMySql>();
 
 builder.Services.AddScoped<ITaskService, TaskService>();
 
