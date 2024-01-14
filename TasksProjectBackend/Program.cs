@@ -19,6 +19,8 @@ builder.Services.AddSingleton<ITaskRepository, TaskDataMock>();
 
 builder.Services.AddScoped<ITaskService, TaskService>();
 
+builder.Services.AddScoped<BooksDataSql>();
+
 var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
 builder.Services.AddCors(options =>
