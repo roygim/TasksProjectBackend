@@ -38,13 +38,30 @@ namespace TasksProjectBackend.Repositories
 
         public async Task<List<BooksObj>> GetAllSP()
         {
-            var conn = GetDbConnection();
+            using (var conn = GetDbConnection())
+            {
+                var books = await conn.QueryAsync<BooksObj>(
+                                   "GetAllBooks",
+                                   commandType: CommandType.StoredProcedure);
 
-            var books = await conn.QueryAsync<BooksObj>(
-                               "GetAllBooks",
-                               commandType: CommandType.StoredProcedure);
+                return books.ToList<BooksObj>();
+            }
+        }
 
-            return books.ToList<BooksObj>(); ;
+        public async Task<BooksObj> GetBookByID(int id)
+        {
+            using (var conn = GetDbConnection())
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("ID", id, dbType: DbType.Int32);
+
+                var book = await conn.QueryAsync<BooksObj>(
+                    "GetBookByID",
+                    parameters,
+                    commandType: CommandType.StoredProcedure);
+
+                return book.FirstOrDefault<BooksObj>();
+            }
         }
     }
 }

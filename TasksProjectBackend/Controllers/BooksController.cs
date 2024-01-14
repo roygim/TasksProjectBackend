@@ -39,6 +39,20 @@ namespace TasksProjectBackend.Controllers
             return Ok(books);
         }
 
+        [HttpGet("GetBookByID/{id}")]
+        public async Task<ActionResult<BooksObj>> GetBookByID(int id)
+        {
+            BooksObj book = await _booksDataSql.GetBookByID(id);
+
+            if(book is null)
+            {
+                return NotFound();
+            } else
+            {
+                return Ok(book);
+            }   
+        }
+
         //[HttpPost("AddTask")]
         //public async Task<ActionResult<TaskObj>> AddTask(TaskObj taskObj)
         //{
