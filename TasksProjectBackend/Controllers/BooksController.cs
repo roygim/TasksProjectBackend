@@ -53,12 +53,12 @@ namespace TasksProjectBackend.Controllers
             }   
         }
 
-        //[HttpPost("AddTask")]
-        //public async Task<ActionResult<TaskObj>> AddTask(TaskObj taskObj)
-        //{
-        //    TaskObj newTask = await _taskService.AddTask(taskObj);
-        //    return Ok(newTask);
-        //}
+        [HttpPost("AddBook")]
+        public async Task<ActionResult<BooksObj>> AddBook([FromBody] BooksObj book)
+        {
+            BooksObj newBook = await _booksDataSql.AddBook(book);
+            return Ok(newBook);
+        }
 
         //[HttpDelete("DeleteTask/{id}")]
         //public async Task<ActionResult<bool>> DeleteTask(int id)

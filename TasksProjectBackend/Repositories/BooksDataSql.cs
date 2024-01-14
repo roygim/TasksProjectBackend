@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Xml.Linq;
+using TasksProjectBackend.SimpleObjects;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace TasksProjectBackend.Repositories
@@ -61,6 +62,27 @@ namespace TasksProjectBackend.Repositories
                     commandType: CommandType.StoredProcedure);
 
                 return book.FirstOrDefault<BooksObj>();
+            }
+        }
+
+        public async Task<BooksObj> AddBook(BooksObj book)
+        {
+            using (var conn = GetDbConnection())
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@Name", book.Name, dbType: DbType.String);
+                parameters.Add("@Year", book.Year, dbType: DbType.Int32);
+                parameters.Add("@MaxDays", book.MaxDays, dbType: DbType.Int32);
+                parameters.Add("@Faculty", book.Faculty, dbType: DbType.String);
+                parameters.Add("@Pages", book.Pages, dbType: DbType.Int32);
+                parameters.Add("@NewId", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                await conn.ExecuteAsync("AddNewBook", parameters, commandType: CommandType.StoredProcedure);
+
+                int newId = parameters.Get<int>("@NewId");
+                book.ID = newId;
+
+                return book;
             }
         }
     }
